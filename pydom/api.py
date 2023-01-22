@@ -1,14 +1,16 @@
+from datetime import datetime
+from pathlib import Path
+
 import urllib3
-from fastapi import FastAPI, Request, Depends
+from fastapi import Depends, FastAPI, Request
 from fastapi.responses import FileResponse, PlainTextResponse
 
+import pydom
 from pydom.models import *
-from pydom.socket import parse_response, send_message, Tydom, socket_check_v2, socket_shutdown
+from pydom.socket import (Tydom, parse_response, send_message, socket_check_v2,
+                          socket_shutdown)
 
-from datetime import datetime
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-
 
 app = FastAPI()
 
@@ -18,7 +20,7 @@ async def startup_event():
 
 @app.get('/favicon.ico', include_in_schema=False)
 async def favicon():
-    return FileResponse("favicon-196x196.png")
+    return FileResponse(str(Path(pydom.__path__[0]) / '/assets/favicon-196x196.png'))
 
 @app.get('/metrics', response_class=PlainTextResponse)
 async def metrics(tydom: Tydom=Depends(Tydom)):
