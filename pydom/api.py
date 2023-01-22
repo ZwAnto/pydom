@@ -20,7 +20,8 @@ async def startup_event():
 
 @app.get('/favicon.ico', include_in_schema=False)
 async def favicon():
-    return FileResponse(str(Path(pydom.__path__[0]) / '/assets/favicon-196x196.png'))
+    return FileResponse(str(Path(pydom.__path__[0]) / 'assets/favicon-196x196.png'))
+
 
 @app.get('/metrics', response_class=PlainTextResponse)
 async def metrics(tydom: Tydom=Depends(Tydom)):
