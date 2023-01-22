@@ -32,5 +32,5 @@ jobs:
 
     - name: Build the Docker image
       run: |
-        docker buildx build . --platform linux/arm64 -f Dockerfile -t ${{ secrets.REGISTRY_URL }}/pytorres:${GITHUB_SHA::7} --push
-        docker buildx build . --platform linux/arm64 -f Dockerfile -t ${{ secrets.REGISTRY_URL }}/pytorres:latest --push
+        docker buildx build . --platform linux/arm64 -f Dockerfile -t ${{ secrets.REGISTRY_URL }}/pydom:${GITHUB_SHA::7} --push
+        docker buildx build . --platform linux/arm64 -f Dockerfile -t ${{ secrets.REGISTRY_URL }}/pydom:latest --push
