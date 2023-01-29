@@ -37,7 +37,7 @@ async def metrics(tydom: Tydom=Depends(Tydom)):
         for device in data['content']:
             for endpoint in device['endpoints']:
                 for entry in endpoint['data']:
-                    if entry['name'] in ['temperature', 'energyTotIndexGas']:
+                    if entry['name'] in ['temperature', 'energyTotIndexGas', 'energyIndexHeatGas', 'energyIndexECSGas', 'setpoint']:
                         body.append(f'{entry["name"]} {{device="{device["id"]}", entrypoint="{endpoint["id"]}"}} {entry["value"]} {int(datetime.now().timestamp())*1000}')
     except:
         pass
