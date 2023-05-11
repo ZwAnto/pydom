@@ -34,3 +34,34 @@ jobs:
       run: |
         docker buildx build . --platform linux/arm64 -f Dockerfile -t ${{ secrets.REGISTRY_URL }}/pydom:${GITHUB_SHA::7} --push
         docker buildx build . --platform linux/arm64 -f Dockerfile -t ${{ secrets.REGISTRY_URL }}/pydom:latest --push
+
+    - name: Find and Replace
+      uses: jacobtomlinson/gha-find-replace@v3
+      with:
+        find: "${REGISTRY_URL}"
+        replace: ${{ secrets.REGISTRY_URL }}
+        regex: False
+        include: 'k8s/deployment.yaml'
+
+    - name: Find and Replace
+      uses: jacobtomlinson/gha-find-replace@v3
+      with:
+        find: "${TYDOM_MAC}"
+        replace: ${{ secrets.TYDOM_MAC }}
+        regex: False
+        include: 'k8s/secret.yaml'
+
+    - name: Find and Replace
+      uses: jacobtomlinson/gha-find-replace@v3
+      with:
+        find: "${TYDOM_PASS}"
+        replace: ${{ secrets.TYDOM_PASS }}
+        regex: False
+        include: 'k8s/secret.yaml'
+
+    - name: deploy
+      uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      with:
+        args: apply -f k8s/deployment.yaml

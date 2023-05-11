@@ -1,0 +1,57 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pydom-service
+  labels:
+    run: pydom
+spec:
+  type: NodePort
+  ports:
+    - name: port8000
+      port: 8000
+      nodePort: 30801
+      protocol: TCP
+  selector:
+    app: pydom
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pydom
+  name: pydom
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pydom
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: pydom
+    spec:
+      containers:
+        - image: ${REGISTRY_URL}/pydom:c38ecb1
+          name: pydom-server
+          env:
+            - name: TYDOM_HOST
+              value: 192.168.1.194
+            - name: TYDOM_MAC
+              valueFrom:
+                secretKeyRef:
+                  name: pydom-secret
+                  key: mac
+            - name: TYDOM_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pydom-secret
+                  key: password
+          ports:
+            - containerPort: 8000
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
