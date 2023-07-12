@@ -35,7 +35,7 @@ spec:
         app: pydom
     spec:
       containers:
-        - image: ${REGISTRY_URL}/pydom:latest
+        - image: ${REGISTRY_URL}/pydom:${DIGEST}
           name: pydom-server
           env:
             - name: TYDOM_HOST

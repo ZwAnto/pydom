@@ -43,6 +43,14 @@ jobs:
         regex: False
         include: 'k8s/deployment.yaml'
 
+    - name: Replace DIGEST
+      uses: jacobtomlinson/gha-find-replace@v3
+      with:
+        find: "${DIGEST}"
+        replace: ${GITHUB_SHA::7}
+        regex: False
+        include: 'k8s/deployment.yaml'
+
     - name: Replace TYDOM_MAC
       uses: jacobtomlinson/gha-find-replace@v3
       with:
