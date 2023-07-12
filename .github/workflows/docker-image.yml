@@ -47,7 +47,7 @@ jobs:
       uses: jacobtomlinson/gha-find-replace@v3
       with:
         find: "${DIGEST}"
-        replace: ${{GITHUB_SHA::7}}
+        replace: "${GITHUB_SHA::7}"
         regex: False
         include: 'k8s/deployment.yaml'
 
