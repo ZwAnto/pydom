@@ -4,6 +4,7 @@ from pathlib import Path
 import urllib3
 from fastapi import Depends, FastAPI, Request
 from fastapi.responses import FileResponse, PlainTextResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 import pydom
 from pydom.models import *
@@ -13,6 +14,12 @@ from pydom.socket import (Tydom, parse_response, send_message, socket_check_v2,
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*']
+)
 
 @app.on_event("startup")
 async def startup_event():
