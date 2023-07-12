@@ -43,11 +43,15 @@ jobs:
         regex: False
         include: 'k8s/deployment.yaml'
 
+    - name: Set outputs
+      id: vars
+      run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
     - name: Replace DIGEST
       uses: jacobtomlinson/gha-find-replace@v3
       with:
         find: "${DIGEST}"
-        replace: "${GITHUB_SHA::7}"
+        replace: "${{ steps.vars.outputs.sha_short }}"
         regex: False
         include: 'k8s/deployment.yaml'
 
