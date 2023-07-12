@@ -29,7 +29,8 @@ def pingOk(sHost):
 
 
 # Initiate socket connection
-async def socket_connect(headers=None):
+async def socket_connect(headers={}):
+    headers = {**headers, 'Authorization': build_digest_headers()}
     return await websockets.connect(
         f'wss://{config.TYDOM_HOST}:443/mediation/client?mac={config.TYDOM_MAC}&appli=1',
         extra_headers=headers, 
