@@ -12,6 +12,7 @@ steps:
       from_secret: registry_user
     password:
       from_secret: registry_password
+    dockerfile: k8s/Dockerfile
     repo: registry.ahamon.ovh/pydom
     tags:
     - ${DRONE_COMMIT_SHA:0:7}
