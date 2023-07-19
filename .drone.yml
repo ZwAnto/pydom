@@ -4,5 +4,15 @@ type: kubernetes
 name: default
 
 steps:
-- name: greeting
-  image: hello-world:latest
+- name: docker
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: registry_user
+    password:
+      from_secret: registry_password
+    repo: registry.ahamon.ovh/pydom
+    tags:
+    - ${DRONE_COMMIT_SHA:0:7}
+    - latest
+    platform: linux/arm64
