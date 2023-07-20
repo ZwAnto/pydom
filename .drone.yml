@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: kubernetes
-name: default
+name: docker-build
 
 steps:
 - name: docker
@@ -22,7 +22,7 @@ steps:
 ---
 kind: pipeline
 type: kubernetes
-name: default
+name: deploy
 
 steps:
 - name: Deploy app
