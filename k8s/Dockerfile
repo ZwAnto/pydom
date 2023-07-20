@@ -1,6 +1,6 @@
 FROM python:3.8.17-alpine
 
-RUN apk add iputils-ping
+RUN apk update && apk add iputils-ping
 
 ADD . /app
 
