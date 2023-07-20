@@ -28,9 +28,9 @@ steps:
 - name: Deploy app
   image: danielgormly/drone-plugin-kube:0.0.1
   settings:
-    template: path/to/deployment.yaml
+    template: k8s/deployment.yaml
     ca: LS0tLS1... # BASE64 encoded string of the K8s CA cert
-    server: https://10.0.0.20:6443 # K8s master node address
+    server: https://kubernetes.ahamon.ovh
     token:
       from_secret: kubernetes_token # Service account token to a service account that can manage deployments
 
