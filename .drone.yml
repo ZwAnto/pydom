@@ -28,6 +28,7 @@ steps:
 - name: Deploy app
   image: danielgormly/drone-plugin-kube:0.0.1
   settings:
+    build_number: ${DRONE_COMMIT_SHA:0:7}
     template: k8s/deployment.yaml
     ca: LS0tLS1... # BASE64 encoded string of the K8s CA cert
     server: https://kubernetes.ahamon.ovh
