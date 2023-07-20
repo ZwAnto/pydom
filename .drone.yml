@@ -22,6 +22,8 @@ steps:
 trigger:
   branch:
   - master
+  event:
+  - push
 
 ---
 kind: pipeline
