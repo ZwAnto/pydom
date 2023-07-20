@@ -18,3 +18,41 @@ steps:
     - ${DRONE_COMMIT_SHA:0:7}
     - latest
     platform: linux/arm64
+
+---
+kind: pipeline
+type: kubernetes
+name: default
+
+steps:
+- name: Deploy app
+  image: danielgormly/drone-plugin-kube:0.0.1
+  settings:
+    template: k8s/secret.yaml
+    tydom_mac:
+    tydom_pass:
+    ca: # BASE64 encoded string of the K8s CA cert
+      from_secret: k8s_cert
+    server:
+      from_secret: k8s_server
+    token:
+      from_secret: k8s_token
+      
+steps:
+- name: Deploy app
+  image: danielgormly/drone-plugin-kube:0.0.1
+  settings:
+    build_number: ${DRONE_COMMIT_SHA:0:7}
+    template: k8s/deployment.yaml
+    ca: # BASE64 encoded string of the K8s CA cert
+      from_secret: k8s_cert
+    server:
+      from_secret: k8s_server
+    token:
+      from_secret: k8s_token
+
+trigger:
+  event:
+  - promote
+  target:
+  - production
