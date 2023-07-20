@@ -1,6 +1,6 @@
-FROM python:3.8.13-slim-buster
+FROM python:3.8.17-alpine
 
-RUN apt update && apt install -y iputils-ping
+RUN apk add iputils-ping
 
 ADD . /app
 

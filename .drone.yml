@@ -19,6 +19,10 @@ steps:
     - latest
     platform: linux/arm64
 
+trigger:
+  branch:
+  - master
+
 ---
 kind: pipeline
 type: kubernetes
