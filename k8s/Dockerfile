@@ -1,6 +1,6 @@
-FROM python:3.10.12-slim-bullseye
+FROM python:3.8.13-slim-buster
 
-RUN apt update && apt install -y iputils-ping
+RUN apt-get update && apt-get install -y iputils-ping
 
 ADD . /app
 
