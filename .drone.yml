@@ -30,32 +30,31 @@ kind: pipeline
 type: kubernetes
 name: deploy
 
+
 steps:
-- name: Deploy app
-  image: danielgormly/drone-plugin-kube:0.0.1
-  settings:
-    template: k8s/secret.yaml
-    tydom_mac:
-    tydom_pass:
-    ca: # BASE64 encoded string of the K8s CA cert
-      from_secret: k8s_cert
-    server:
-      from_secret: k8s_server
-    token:
-      from_secret: k8s_token
-      
-steps:
-- name: Deploy app
-  image: danielgormly/drone-plugin-kube:0.0.1
-  settings:
-    build_number: ${DRONE_COMMIT_SHA:0:7}
-    template: k8s/deployment.yaml
-    ca: # BASE64 encoded string of the K8s CA cert
-      from_secret: k8s_cert
-    server:
-      from_secret: k8s_server
-    token:
-      from_secret: k8s_token
+  - name: deploy
+    image: zc2638/drone-k8s-plugin
+    pull: if-not-exists
+    environment:
+      TYDOM_PASS:
+        from_secret: tydom_pass
+      TYDOM_MAC:
+        from_secret: tydom_mac
+    settings:
+      k8s_server: 
+        from_secret: k8s_server
+      k8s_token:
+        from_secret: k8s_token
+      k8s_ca_crt:
+        from_secret: k8s_ca_crt
+      k8s_skip_tls: false
+      templates:
+        - k8s/secret.yaml
+        - k8s/deployment.yaml
+      build_number: ${DRONE_COMMIT_SHA:0:7}
+      tydom_pass: ${TYDOM_PASS}
+      tydom_mac: ${TYDOM_MAC}
+
 
 trigger:
   event:
