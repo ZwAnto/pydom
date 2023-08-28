@@ -35,7 +35,7 @@ spec:
         app: pydom
     spec:
       containers:
-        - image: registry.ahamon.ovh/pydom:{{build_number}}
+        - image: registry.ahamon.ovh/pydom:{{ .env.build_number }}
           name: pydom-server
           env:
             - name: TYDOM_HOST
