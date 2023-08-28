@@ -47,7 +47,7 @@ steps:
         from_secret: k8s_token
       k8s_ca_crt:
         from_secret: k8s_ca_crt
-      k8s_skip_tls: false
+      k8s_skip_tls: true
       templates:
         - k8s/secret.yaml
         - k8s/deployment.yaml
