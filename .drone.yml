@@ -18,7 +18,6 @@ steps:
     - ${DRONE_COMMIT_SHA:0:7}
     - latest
     platform: linux/arm64
-    custom_dns_search: "8.8.8.8"
 
 trigger:
   branch:
