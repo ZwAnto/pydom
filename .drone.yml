@@ -18,7 +18,6 @@ steps:
     - ${DRONE_COMMIT_SHA:0:7}
     - latest
     platform: linux/arm64
-  network_mode: bridge
 
 trigger:
   branch:
