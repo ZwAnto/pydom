@@ -2,6 +2,7 @@
 from datetime import datetime
 
 from fastapi import APIRouter, Depends
+from fastapi.responses import PlainTextResponse
 
 from pydom.cozy_client import CozyTouchClient
 
@@ -9,7 +10,7 @@ router = APIRouter(prefix="/cozytouch")
 
 client = CozyTouchClient()
 
-@router.get('/metrics')
+@router.get('/metrics', response_class=PlainTextResponse)
 async def metrics(client: CozyTouchClient=Depends(client.check_session)):
         
     deviceURL = "modbuslink://1546-7191-2398/1#2"
