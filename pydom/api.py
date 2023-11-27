@@ -1,13 +1,17 @@
 
+import os
 from pathlib import Path
+from pprint import pprint
 
 import urllib3
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from pydom.routes import tydom, cozytouch
 
 import pydom
+from pydom.routes import cozytouch, tydom
+
+pprint(os.environ)
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
