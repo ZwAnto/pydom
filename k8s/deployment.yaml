@@ -50,6 +50,11 @@ spec:
                 secretKeyRef:
                   name: pydom-secret
                   key: password
+            - name: COZYTOUCH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: pydom-secret
+                  key: token
           ports:
             - containerPort: 8000
       imagePullSecrets:
