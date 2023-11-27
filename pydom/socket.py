@@ -4,11 +4,10 @@ import os
 import platform
 import ssl
 import subprocess
-from functools import wraps
 
 import requests
 import websockets
-from fastapi import HTTPException, Depends
+from fastapi import Depends, HTTPException
 from requests.auth import HTTPDigestAuth
 
 from pydom import config
@@ -22,8 +21,8 @@ def generate_random_key():
 
 def pingOk(sHost):
     try:
-        output = subprocess.check_output("ping -{} 1 {}".format('n' if platform.system().lower()=="windows" else 'c', sHost), shell=True)
-    except Exception as e:
+        _ = subprocess.check_output("ping -{} 1 {}".format('n' if platform.system().lower()=="windows" else 'c', sHost), shell=True)
+    except Exception:
         return False
     return True
 
@@ -55,7 +54,7 @@ def first_handshake():
 
 def check_pairing():
     res = first_handshake()
-    return not "WWW-Authenticate" in res.headers.keys()
+    return  "WWW-Authenticate" not in res.headers.keys()
 
 
 def build_digest_headers():
@@ -89,7 +88,7 @@ async def socket_check_v2():
         
         try:
             tydom = await socket_connect(websocketHeaders)
-        except Exception as e:
+        except Exception:
             raise HTTPException(status_code=503, detail="Tydom can't be reached") 
 
     if tydom is None or not tydom.open:
