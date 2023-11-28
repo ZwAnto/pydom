@@ -71,11 +71,19 @@ jobs:
         regex: False
         include: 'k8s/secret.yaml'
 
-    - name: Replace COZYTOUCH_TOKEN
+    - name: Replace COZYTOUCH_USERNAME
       uses: jacobtomlinson/gha-find-replace@v3
       with:
-        find: "${COZYTOUCH_TOKEN}"
-        replace: ${{ secrets.COZYTOUCH_TOKEN }}
+        find: "${COZYTOUCH_USERNAME}"
+        replace: ${{ secrets.COZYTOUCH_USERNAME }}
+        regex: False
+        include: 'k8s/secret.yaml'
+
+    - name: Replace COZYTOUCH_PASSWORD
+      uses: jacobtomlinson/gha-find-replace@v3
+      with:
+        find: "${COZYTOUCH_PASSWORD}"
+        replace: ${{ secrets.COZYTOUCH_PASSWORD }}
         regex: False
         include: 'k8s/secret.yaml'
 

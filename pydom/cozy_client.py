@@ -10,6 +10,7 @@ class CozyTouchClient:
 
     def __init__(self):
         self.session = requests.session()
+        self.token = None
         self.jwt = None
 
         self.login()
@@ -27,18 +28,24 @@ class CozyTouchClient:
 
         return r.json()['access_token']
 
-    @staticmethod
-    def get_jwt(token):
+    def get_jwt(self):
+
+        if self.token is None: 
+            self.token = self.get_token(config.get('COZYTOUCH_USERNAME'), config.get('COZYTOUCH_PASSWORD'))
 
         r = requests.get('https://apis.groupe-atlantic.com/magellan/accounts/jwt', headers={
-            "Authorization": f'Bearer {token}'
+            "Authorization": f'Bearer {self.token}'
         })
+
+        if 'Invalid Credentials' in r.text:
+            self.token = None
+            return self.get_jwt()
 
         return r.json().strip()
 
     def login(self):
 
-        self.jwt = self.get_jwt(config.get('COZYTOUCH_TOKEN'))
+        self.jwt = self.get_jwt()
 
         _ = self.session.post("https://ha110-1.overkiz.com/enduser-mobile-web/enduserAPI/login", data={
             'jwt': self.jwt

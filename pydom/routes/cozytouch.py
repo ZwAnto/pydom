@@ -25,3 +25,12 @@ async def metrics(client: CozyTouchClient=Depends(client.check_session)):
 
 
 
+# _deviceURL = quote_plus(deviceURL)
+# client.check_session()
+# r = client.session.get("https://ha110-1.overkiz.com/enduser-mobile-web/enduserAPI/setup/devices")
+
+# from pprint import pprint
+
+
+
+# pprint([j['name'] for i in r.json() for j in i.get('states', [])])
