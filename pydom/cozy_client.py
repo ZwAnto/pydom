@@ -20,7 +20,7 @@ class CozyTouchClient:
 
         r = requests.post('https://apis.groupe-atlantic.com/token', params={
             "grant_type": "password",
-            "username": username,
+            "username": f"GA-PRIVATEPERSON/{username}",
             "password": password
         }, headers={
             "Authorization": "Basic Q3RfMUpWeVRtSUxYOEllZkE3YVVOQmpGblpVYToyRWNORHpfZHkzNDJVSnFvMlo3cFNKTnZVdjBh"
@@ -31,7 +31,7 @@ class CozyTouchClient:
     def get_jwt(self):
 
         if self.token is None: 
-            self.token = self.get_token(config.get('COZYTOUCH_USERNAME'), config.get('COZYTOUCH_PASSWORD'))
+            self.token = self.get_token(username=config.get('COZYTOUCH_USERNAME'), password=config.get('COZYTOUCH_PASSWORD'))
 
         r = requests.get('https://apis.groupe-atlantic.com/magellan/accounts/jwt', headers={
             "Authorization": f'Bearer {self.token}'
