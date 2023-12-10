@@ -51,6 +51,14 @@ class CozyTouchClient:
             'jwt': self.jwt
         })
 
+    def is_available(self, deviceURL):
+
+        _deviceURL = quote_plus(deviceURL)
+
+        r = self.session.get(f"https://ha110-1.overkiz.com/enduser-mobile-web/enduserAPI/setup/devices/{_deviceURL}")
+
+        return r.json()['available']
+
     def get_state(self, deviceURL, nameState):
 
         _deviceURL = quote_plus(deviceURL)
