@@ -29,6 +29,8 @@ async def metrics(tydom: Tydom = Depends(Tydom)):
                         "energyIndexECSGas",
                         "outTemperature",
                         "setpoint",
+                        "energyTotIndexWatt",
+                        "energyInstantTotElecP",
                     ]:
                         body.append(
                             f'{entry["name"]} {{device="{device["id"]}", entrypoint="{endpoint["id"]}"}} {entry["value"] if entry["value"] else 0} {int(datetime.now().timestamp())*1000}'
