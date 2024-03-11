@@ -88,7 +88,7 @@ jobs:
         include: 'k8s/secret.yaml'
 
     - name: Deploy
-      uses: actions-hub/kubectl@master
+      uses: actions-hub/kubectl@v1.26.3
       env:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       with:
