@@ -10,9 +10,11 @@ class FileType(str, Enum):
     scenarios = "scenarios"
     moments = "moments"
 
+
 class RootType(str, Enum):
     protocols = "protocols"
     info = "info"
+
 
 class DeviceType(str, Enum):
     data = "data"
@@ -20,6 +22,7 @@ class DeviceType(str, Enum):
     cmeta = "cmeta"
     cdata = "cdata"
     devices = "devices"
+
 
 class Data(BaseModel):
     name: str

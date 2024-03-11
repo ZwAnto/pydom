@@ -1,4 +1,3 @@
-
 import os
 from pathlib import Path
 from pprint import pprint
@@ -27,10 +26,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.on_event("startup")
 async def startup_event():
     pass
 
-@app.get('/favicon.ico', include_in_schema=False)
+
+@app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
-    return FileResponse(str(Path(pydom.__path__[0]) / 'assets/favicon-196x196.png'))
+    return FileResponse(str(Path(pydom.__path__[0]) / "assets/favicon-196x196.png"))

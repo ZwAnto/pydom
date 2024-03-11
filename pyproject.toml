@@ -13,6 +13,7 @@ fastapi = "^0.88.0"
 uvicorn = {extras = ["standard"], version = "^0.20.0"}
 python-dotenv = "^0.21.0"
 easydict = "^1.10"
+ruff = "^0.3.2"
 
 [tool.poetry.dev-dependencies]
 
